@@ -4,6 +4,7 @@
 angular.module('bnw', [
   'ui.bootstrap',
   'ui.router',
+  'bnw.common',
   'bnw.main',
   'bnw.login',
 ]).
@@ -11,7 +12,7 @@ config(function($locationProvider, $stateProvider, $urlRouterProvider){
   $locationProvider.hashPrefix('!');
   
   // For any unmatched url, send to /route1
-  $urlRouterProvider.otherwise("/main")
+  $urlRouterProvider.otherwise("/main");
   
   // $stateProvider
   //     .state('main', {
@@ -25,3 +26,20 @@ config(function($locationProvider, $stateProvider, $urlRouterProvider){
   //         controller: 'LoginCtrl'
   //     })
 })
+
+.run(['$rootScope', function($rootScope) {
+  $rootScope.safeApply = function(fn) {
+    if (!this.$root) {
+      this.$apply(fn);
+      return;
+    }
+    var phase = this.$root.$$phase;
+    if(phase == '$apply' || phase == '$digest') {
+        if(fn && (typeof(fn) === 'function')) {
+            fn();
+        }
+    } else {
+        this.$apply(fn);
+    }
+  };
+}])

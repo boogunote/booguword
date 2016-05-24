@@ -1,1 +1,21 @@
-This is main page
+<form>
+  <input type="text" class="form-control" ng-model="newWord.word" placeholder="单词">
+  <input type="text" class="form-control" ng-model="newWord.strpho" placeholder="音标">
+  <input type="text" class="form-control" ng-model="newWord.usertrans" placeholder="当前含义">
+  <input type="text" class="form-control" ng-model="newWord.basetrans" placeholder="字典含义">
+  <input type="text" class="form-control" ng-model="newWord.sentence" placeholder="句子">
+  <input type="text" class="form-control" ng-model="newWord.url" placeholder="链接">
+  <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 15px;" ng-click="addWord()">添加</button>
+</form>
+<hr>
+<iframe src="http://dict.cn" style="width: 100%; height: 400px;">
+</iframe>
+<div ng-repeat="item in itemList">
+  <div>
+    <a style="text-decoration: none; line-height: 1.25em; padding-right: 10px; font-weight: bold; font-size: 30px; color: #094; font-family: Verdana,Geneva,sans-serif;" href="http://dict.cn/{{item.word}}">{{item.word}}</a><span>{{item.strpho}}</span><span>{{item.usertrans}}</span><span>{{item.basetrans}}</span>
+  </div>
+  <div>{{item.sentence}}</div>
+  <div>{{item.url}}</div>
+  <div>{{item.createDate}}<button type="button" class="btn btn-default" ng-click="deleteWord(item)">删除</button></div>
+  <hr>
+</div>

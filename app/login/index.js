@@ -10,10 +10,28 @@ angular.module('bnw.login', [])
   });
 }])
 
-.controller('LoginCtrl', ['$scope', '$state', function($scope, $state) {
+.controller('LoginCtrl', ['$scope', '$state', 'BnwCommon', function($scope, $state, BnwCommon) {
 
   $scope.login = function() {
-    console.log($scope)
-    $state.go('main');
+    
+    BnwCommon.ref.authWithPassword({
+        email: $scope.username,
+        password: $scope.password
+    }, function(error, authData) {
+      if (error) {
+        switch (error.code) {
+          case "INVALID_EMAIL":
+            console.log("The specified user account email is invalid.");
+            break;
+          default:
+            console.log("Error logging user in:", error);
+        }
+      } else {
+        console.log("Authenticated successfully with payload:", authData);
+        BnwCommon.ref.child(BnwCommon.ref.getAuth().uid).set('test');
+        $state.go('main');
+      }
+    });
+    
   }
 }]);
