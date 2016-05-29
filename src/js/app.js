@@ -10,7 +10,7 @@
     'bnw.main',
     'bnw.login',
   ]).
-  config(function($locationProvider, $stateProvider, $urlRouterProvider){
+  config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider){
     $locationProvider.hashPrefix('!');
     
     // For any unmatched url, send to /route1
@@ -27,7 +27,7 @@
     //         templateUrl: "login/index.html",
     //         controller: 'LoginCtrl'
     //     })
-  })
+  }])
 
   .run(['$rootScope', function($rootScope) {
     $rootScope.safeApply = function(fn) {
