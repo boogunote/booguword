@@ -19,7 +19,8 @@ var rev = require('gulp-rev-append');
 gulp.task('templates', function () {
   return gulp.src([
       './src/**/*.html',
-      './src/index.html',
+      '!./src/index.html',
+      '!./src/index-dist.html',
       '!./src/bower_components/**',
       '!./src/css/**',
       '!./src/vendor/**'
@@ -27,7 +28,7 @@ gulp.task('templates', function () {
     .pipe(minifyHTML({
       quotes: true
     }))
-    .pipe(templates('templates.js'))
+    .pipe(templates('templates.js', {standalone: true})) // should be true, otherwise will get error in latest angularjs.
     .pipe(gulp.dest('./tmp'));
 });
 
@@ -125,9 +126,12 @@ var jsList = [
   './src/bower_components/angular-ui-router/release/angular-ui-router.js',
   './src/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
   './src/bower_components/angular-translate/angular-translate.js',
-  './src/js/app.js',
+  './src/bower_components/wilddog/wilddog.js',
   './tmp/templates.js',
-  './src/js/**/*.js'
+  './src/js/services/common.js',
+  './src/js/login/index.js',
+  './src/js/main/index.js',
+  './src/js/app.js',
 ]
 
 gulp.task('static', ['clean', 'templates', 'font', 'images', 'css', 'vendor', 'index', 'copyi18n', 'copydocs', 'copyFavicon'], function() {
