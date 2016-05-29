@@ -5,7 +5,7 @@ angular.module('bnw.login', [])
 .config(['$stateProvider', function($stateProvider) {
   $stateProvider.state('login', {
     url: '/login',
-    templateUrl: 'login/index.html',
+    templateUrl: 'js/login/index.html',
     controller: 'LoginCtrl'
   });
 }])
