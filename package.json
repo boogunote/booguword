@@ -35,7 +35,9 @@
     "postinstall": "bower install",
 
     "prestart": "npm install",
-    "start": "http-server -a localhost -p 3000 -c-1 ./src",
+    "start": "http-server -a 0.0.0.0 -p 3000 -c-1 ./src",
+
+    "dev": "cd src && http-server -a 0.0.0.0 -p 3000 -c-1 || cd -",
     "dist": "cd dist && http-server -a 0.0.0.0 -p 3000 -c-1 || cd -",
 
     "pretest": "npm install",
