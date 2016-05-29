@@ -28,7 +28,6 @@ angular.module('bnw.login', [])
         }
       } else {
         console.log("Authenticated successfully with payload:", authData);
-        BnwCommon.ref.child(BnwCommon.ref.getAuth().uid).set('test');
         $state.go('main');
       }
     });
