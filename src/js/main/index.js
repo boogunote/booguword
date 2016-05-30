@@ -10,12 +10,14 @@ angular.module('bnw.main', [])
   });
 }])
 
-.controller('MainCtrl', ['$scope', '$state', 'BnwCommon', function($scope, $state, BnwCommon) {
+.controller('MainCtrl', ['$scope', '$state', '$http', 'BnwCommon', function($scope, $state, $http, BnwCommon) {
   var ref = BnwCommon.ref;
   
   function init() {
     $scope.pageIndex = 0;
     $scope.pageSize = 20;
+
+    $scope.dictUrl = "http://dict.cn";
 
     $scope.newWord = {};
 
@@ -67,8 +69,14 @@ angular.module('bnw.main', [])
 
   $scope.addWord = function() {
     $scope.newWord.timestamp = Wilddog.ServerValue.TIMESTAMP;
+    if (!!$scope.newWord.strpho) {
+      $scope.newWord.strpho = $scope.newWord.strpho.trim();
+      if ('[' != $scope.newWord.strpho[0]) $scope.newWord.strpho = '[' + $scope.newWord.strpho;
+      if (']' != $scope.newWord.strpho[$scope.newWord.strpho.length-1]) $scope.newWord.strpho = $scope.newWord.strpho + ']';
+    }
     BnwCommon.getRef()
       .push($scope.newWord)
+    $scope.newWord = {}
   }
 
   $scope.deleteWord = function(item) {
@@ -123,6 +131,21 @@ angular.module('bnw.main', [])
         .endAt($scope.endAt) // NOTICE: display item is reversed
         .limitToLast($scope.pageSize)
         .once("value", onData)
+  }
+
+  $scope.searchWordOnDictCN = function() {
+    $http.jsonp("http://fanyi.dict.cn/search.php?jsoncallback=JSON_CALLBACK&q=" + $scope.newWord.word)
+    .success(function(data){
+        console.log(data);
+        $scope.newWord.basetrans = '';
+        if (!!data.out && !! data.out.translation) {
+          data.out.translation.forEach(function(item) {
+            $scope.newWord.basetrans += item.join();
+          })
+        }
+    });
+
+    $scope.dictUrl = 'http://dict.cn/' + $scope.newWord.word;
   }
 
   init();

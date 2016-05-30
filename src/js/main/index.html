@@ -1,4 +1,4 @@
-<form name="form">
+<form name="form" style="margin-bottom: 5px;">
   <button type="button" class="btn btn-primary" ng-click="showAdd = !showAdd">添加</button>
   <button type="button" class="btn btn-primary" ng-click="showDict = !showDict">字典</button>
   <button type="button" class="btn btn-primary" ng-show="itemList.length == pageSize" ng-click="nextPage()">下一页</button>
@@ -6,8 +6,11 @@
   <input type="date" name="endAtDate" ng-model="endAtDate"></input>
   <button type="button" class="btn btn-primary" ng-show="form.endAtDate.$valid" ng-click="goToDate()">Go</button>
 </form>
-<form ng-show="showAdd">
-  <input type="text" class="form-control" ng-model="newWord.word" placeholder="单词">
+<form ng-show="showAdd" class="new-word">
+  <div>
+    <input type="text" style="display: inline-block; width: calc(100% - 100px);" class="form-control" ng-model="newWord.word" ng-keyup="$event.keyCode == 13 && searchWordOnDictCN()" placeholder="单词">
+    <button type="button" style="display: inline-block; width: 94px;" class="btn btn-primary" ng-click="searchWordOnDictCN()">查询</button>
+  </div>
   <input type="text" class="form-control" ng-model="newWord.strpho" placeholder="音标">
   <input type="text" class="form-control" ng-model="newWord.usertrans" placeholder="当前含义">
   <input type="text" class="form-control" ng-model="newWord.basetrans" placeholder="字典含义">
@@ -16,7 +19,8 @@
   <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 15px;" ng-click="addWord()">添加</button>
 </form>
 <hr>
-<iframe ng-show="showDict" src="http://dict.cn" style="width: 100%; height: 400px;">
+<iframe ng-if="showDict" id="dict-cn" src="{{dictUrl | trustAsResourceUrl}}" style="width: 100%; height: 400px;"></iframe>
+</div>
 </iframe>
 <div ng-repeat="item in itemList">
   <div ng-if="!item.edit">
