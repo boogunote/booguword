@@ -21,7 +21,7 @@
 <div ng-repeat="item in itemList">
   <div ng-if="!item.edit">
     <div>
-      <a style="text-decoration: none; line-height: 1.25em; padding-right: 10px; font-weight: bold; font-size: 30px; color: #094; font-family: Verdana,Geneva,sans-serif;" href="http://dict.cn/{{item.word}}" target="_blank">{{item.word}}</a><span>{{item.strpho}}</span><strong>{{item.usertrans}}</strong><span>{{item.basetrans}}</span>
+      <a style="text-decoration: none; line-height: 1.25em; padding-right: 10px; font-weight: bold; font-size: 30px; color: #094; font-family: Verdana,Geneva,sans-serif;" href="http://dict.cn/{{item.word}}">{{item.word}}</a><span>{{item.strpho}}</span><strong>{{item.usertrans}}</strong><span>{{item.basetrans}}</span>
     </div>
     <div>{{item.sentence.replace(item.word, item.word.bold())}}</div>
     <a href="{{item.url}}" target="_blank">
