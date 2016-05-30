@@ -44,7 +44,9 @@ angular.module('bnw.main', [])
       var item = data.val();
       item.key = data.key();
       // var regex = new RegExp( '(' + item.word + ')', 'gi' );
-      item.sentenceHtml = item.sentence.replace(item.word, '<span class="highlight-word">'+ item.word +'</span>')
+      if (!!item.sentence) {
+        item.sentenceHtml = item.sentence.replace(item.word, '<span class="highlight-word">'+ item.word +'</span>')
+      }
       item.createDate = new Date(item.timestamp).toLocaleString();
       itemList.push(item);
     });
