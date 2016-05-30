@@ -125,7 +125,7 @@ var jsList = [
   './src/bower_components/angular/angular.js',
   './src/bower_components/angular-ui-router/release/angular-ui-router.js',
   './src/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-  './src/bower_components/angular-translate/angular-translate.js',
+  // './src/bower_components/angular-translate/angular-translate.js',
   './src/bower_components/wilddog/wilddog.js',
   './tmp/templates.js',
   './src/js/services/common.js',
