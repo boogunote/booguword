@@ -34,8 +34,8 @@ angular.module('bnw.main', [])
       // console.log("The " + data.key() + " dinosaur's score is " + data.val());
       var item = data.val();
       item.key = data.key();
-      var regex = new RegExp( '(' + item.word + ')', 'gi' );
-      item.sentenceHtml = item.sentence.replace(regex, '<span class="highlight-word">'+ item.word +'</span>')
+      // var regex = new RegExp( '(' + item.word + ')', 'gi' );
+      item.sentenceHtml = item.sentence.replace(item.word, '<span class="highlight-word">'+ item.word +'</span>')
       item.createDate = new Date(item.timestamp).toLocaleString();
       itemList.push(item);
     });

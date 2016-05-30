@@ -45,7 +45,7 @@ gulp.task('images', function() {
 var cssList = [
   './src/bower_components/angular-bootstrap/ui-bootstrap-csp.css',
   './src/bower_components/bootstrap/dist/css/bootstrap.css',
-  './src/css/app.css'
+  './src/js/app.css'
 ]
 
 gulp.task('cssWithMap', function() {
@@ -126,6 +126,7 @@ var jsList = [
   './src/bower_components/angular-ui-router/release/angular-ui-router.js',
   './src/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
   // './src/bower_components/angular-translate/angular-translate.js',
+  './src/bower_components/angular-sanitize/angular-sanitize.js',
   './src/bower_components/wilddog/wilddog.js',
   './tmp/templates.js',
   './src/js/services/common.js',
