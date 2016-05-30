@@ -3,6 +3,7 @@
 (function() {
   // Declare app level module which depends on views, and components
   angular.module('bnw', [
+    'ngSanitize',
     'templates',
     'ui.bootstrap',
     'ui.router',
