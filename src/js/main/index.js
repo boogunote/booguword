@@ -12,6 +12,15 @@ angular.module('bnw.main', [])
 
 .controller('MainCtrl', ['$scope', '$state', '$http', 'BnwCommon', function($scope, $state, $http, BnwCommon) {
   var ref = BnwCommon.ref;
+
+  if (!ref.getAuth()) {
+    $state.go('login');
+    return;
+  }
+
+  ref.onAuth(function(authData) {
+    if (!authData) $state.go('login');
+  });
   
   function init() {
     $scope.pageIndex = 0;
@@ -148,6 +157,10 @@ angular.module('bnw.main', [])
     });
 
     $scope.dictUrl = 'http://dict.cn/' + $scope.newWord.word;
+  }
+
+  $scope.logout = function() {
+    ref.unauth();
   }
 
   init();
