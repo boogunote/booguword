@@ -16,6 +16,7 @@
     <input type="text" class="form-control" ng-model="newWord.usertrans" placeholder="当前含义">
     <input type="text" class="form-control" ng-model="newWord.basetrans" placeholder="字典含义">
     <input type="text" class="form-control" ng-model="newWord.sentence" placeholder="句子">
+    <input type="text" class="form-control" ng-model="newWord.title" placeholder="标题">
     <input type="text" class="form-control" ng-model="newWord.url" placeholder="链接">
     <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 15px;" ng-click="addWord()">添加</button>
   </form>
@@ -39,6 +40,7 @@
       <input type="text" class="form-control" ng-model="item.usertrans" placeholder="当前含义">
       <input type="text" class="form-control" ng-model="item.basetrans" placeholder="字典含义">
       <input type="text" class="form-control" ng-model="item.sentence" placeholder="句子">
+      <input type="text" class="form-control" ng-model="item.title" placeholder="标题">
       <input type="text" class="form-control" ng-model="item.url" placeholder="链接">
       <button type="button" class="btn btn-default" ng-click="editWord(item)">确定</button>
       <button type="button" class="btn btn-default" ng-click="item.edit = false">取消</button>
