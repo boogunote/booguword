@@ -10,6 +10,7 @@
     'bnw.common',
     'bnw.main',
     'bnw.login',
+    'bnw.trans',
   ]).
   config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider){
     $locationProvider.hashPrefix('!');
