@@ -1,0 +1,15 @@
+<form class="new-word">
+  <div>
+    <input type="text" style="display: inline-block; width: calc(100% - 100px);" class="form-control" ng-model="data.word" ng-keyup="$event.keyCode == 13 && searchWordOnDictCN()" placeholder="单词">
+    <button type="button" style="display: inline-block; width: 94px;" class="btn btn-primary" ng-click="searchWordOnDictCN()">查询</button>
+  </div>
+  <input type="text" class="form-control" ng-model="data.strpho" placeholder="音标">
+  <input type="text" class="form-control" ng-model="data.usertrans" placeholder="当前含义">
+  <input type="text" class="form-control" ng-model="data.basetrans" placeholder="字典含义">
+  <input type="text" class="form-control" ng-model="data.sentence" placeholder="句子">
+  <input type="text" class="form-control" ng-model="data.title" placeholder="标题">
+  <input type="text" class="form-control" ng-model="data.url" placeholder="链接">
+  <button type="button" class="btn btn-primary" style="margin: 15px 0;" ng-click="add()">添加</button>
+  <button type="button" class="btn btn-primary" style="margin: 15px 0; float: right" ng-click="showDict = !showDict">字典</button>
+</form>
+<iframe ng-if="showDict" id="dict-cn" src="{{dictUrl | trustAsResourceUrl}}" style="width: 100%; height: 400px;"></iframe>

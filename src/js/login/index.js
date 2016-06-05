@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('bnw.login', [])
+angular.module('bn.login', [])
 
 .config(['$stateProvider', function($stateProvider) {
   $stateProvider.state('login', {
@@ -10,11 +10,11 @@ angular.module('bnw.login', [])
   });
 }])
 
-.controller('LoginCtrl', ['$scope', '$state', 'BnwCommon', function($scope, $state, BnwCommon) {
+.controller('LoginCtrl', ['$scope', '$state', 'BnCommon', function($scope, $state, BnCommon) {
 
   $scope.login = function() {
     
-    BnwCommon.ref.authWithPassword({
+    BnCommon.ref.authWithPassword({
         email: $scope.username,
         password: $scope.password
     }, function(error, authData) {

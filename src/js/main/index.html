@@ -1,51 +1,15 @@
 <div style="padding: 8px;">
   <form name="form" style="margin-bottom: 5px;">
     <button type="button" class="btn btn-primary" ng-click="showAdd = !showAdd">添加</button>
-    <button type="button" class="btn btn-primary" ng-click="showDict = !showDict">字典</button>
     <button type="button" class="btn btn-primary" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()">上一页</button>
     <button type="button" class="btn btn-primary" ng-show="itemList.length == pageSize" ng-click="nextPage()">下一页</button>
     <input type="date" name="endAtDate" ng-model="endAtDate"></input>
     <button type="button" class="btn btn-primary" ng-show="form.endAtDate.$valid" ng-click="goToDate()">Go</button>
   </form>
-  <form ng-show="showAdd" class="new-word">
-    <div>
-      <input type="text" style="display: inline-block; width: calc(100% - 100px);" class="form-control" ng-model="newWord.word" ng-keyup="$event.keyCode == 13 && searchWordOnDictCN()" placeholder="单词">
-      <button type="button" style="display: inline-block; width: 94px;" class="btn btn-primary" ng-click="searchWordOnDictCN()">查询</button>
-    </div>
-    <input type="text" class="form-control" ng-model="newWord.strpho" placeholder="音标">
-    <input type="text" class="form-control" ng-model="newWord.usertrans" placeholder="当前含义">
-    <input type="text" class="form-control" ng-model="newWord.basetrans" placeholder="字典含义">
-    <input type="text" class="form-control" ng-model="newWord.sentence" placeholder="句子">
-    <input type="text" class="form-control" ng-model="newWord.title" placeholder="标题">
-    <input type="text" class="form-control" ng-model="newWord.url" placeholder="链接">
-    <button type="button" class="btn btn-primary" style="width: 100%; margin-top: 15px;" ng-click="addWord()">添加</button>
-  </form>
+  <bn-word-new-directive ng-show="showAdd"></bn-word-new-directive>
   <hr>
-  <iframe ng-if="showDict" id="dict-cn" src="{{dictUrl | trustAsResourceUrl}}" style="width: 100%; height: 400px;"></iframe>
   <div ng-repeat="item in itemList">
-    <div ng-if="!item.edit">
-      <div>
-        <a style="text-decoration: none; line-height: 1.25em; padding-right: 10px; font-weight: bold; font-size: 30px; color: #094; font-family: Verdana,Geneva,sans-serif;" href="http://dict.cn/{{item.word}}">{{item.word}}</a><span style="margin-right: 10px;">{{item.strpho}}</span><b style="margin-right: 10px;">{{item.usertrans}}</b><span>{{item.basetrans}}</span>
-      </div>
-      <div ng-bind-html="item.sentenceHtml"></div>
-      <a href="{{item.url}}" target="_blank">
-        <span ng-if="!!item.title">{{item.title}}</span>
-        <span ng-if="!item.title">{{item.url}}</span>
-      </a>
-      <div>{{item.createDate}}<button type="button" style="float: right" class="btn btn-default" ng-click="item.edit = true">修改</button></div>
-    </div>
-    <form ng-show="item.edit">
-      <input type="text" class="form-control" ng-model="item.word" placeholder="单词">
-      <input type="text" class="form-control" ng-model="item.strpho" placeholder="音标">
-      <input type="text" class="form-control" ng-model="item.usertrans" placeholder="当前含义">
-      <input type="text" class="form-control" ng-model="item.basetrans" placeholder="字典含义">
-      <input type="text" class="form-control" ng-model="item.sentence" placeholder="句子">
-      <input type="text" class="form-control" ng-model="item.title" placeholder="标题">
-      <input type="text" class="form-control" ng-model="item.url" placeholder="链接">
-      <button type="button" class="btn btn-default" ng-click="editWord(item)">确定</button>
-      <button type="button" class="btn btn-default" ng-click="item.edit = false">取消</button>
-      <button type="button" class="btn btn-default" ng-click="deleteWord(item)">删除</button>
-    </form>
+    <bn-word-directive ng-if="'word' == item.type" ng-model="item"></bn-word-directive>
     <hr>
   </div>
   <button type="button" class="btn btn-primary" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()">上一页</button>

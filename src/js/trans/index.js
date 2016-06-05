@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('bnw.trans', [])
+angular.module('bn.trans', [])
 
 .config(['$stateProvider', function($stateProvider) {
   $stateProvider.state('trans', {
@@ -10,8 +10,8 @@ angular.module('bnw.trans', [])
   });
 }])
 
-.controller('TransCtrl', ['$scope', '$state', '$http', 'BnwCommon', function($scope, $state, $http, BnwCommon) {
-  var ref = BnwCommon.ref;
+.controller('TransCtrl', ['$scope', '$state', '$http', 'BnCommon', function($scope, $state, $http, BnCommon) {
+  var ref = BnCommon.ref;
 
   if (!ref.getAuth()) {
     $state.go('login');
@@ -23,22 +23,21 @@ angular.module('bnw.trans', [])
   });
   
   function init() {
-    BnwCommon.getRef()
+    BnCommon.getRef()
     .once("value", function(snapshot) {
       var data = snapshot.val();
       for (var key in data) {
-        var value = data[key];
-        data[key] = {
-          'value': value,
-          'meta': {
-            'type': 'word'
-          }
-        }
+        data[key].type = 'word';
       }
+      $scope.data = data;
       $scope.safeApply(function() {
         $scope.dataStr = JSON.stringify(data, null, 2);
       })
     })
+  }
+
+  $scope.go = function() {
+    BnCommon.getRef().set($scope.data)
   }
 
   init();

@@ -1,6 +1,6 @@
-angular.module('bnw.common', [])
+angular.module('bn.common', [])
 
-.factory('BnwCommon', ['$timeout', function($timeout) {
+.factory('BnCommon', ['$timeout', function($timeout) {
   var self = {}
 
   self.ref = new Wilddog("https://bn.wilddogio.com/");

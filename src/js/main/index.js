@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('bnw.main', [])
+angular.module('bn.main', [])
 
 .config(['$stateProvider', function($stateProvider) {
   $stateProvider.state('main', {
@@ -10,8 +10,8 @@ angular.module('bnw.main', [])
   });
 }])
 
-.controller('MainCtrl', ['$scope', '$state', '$http', 'BnwCommon', function($scope, $state, $http, BnwCommon) {
-  var ref = BnwCommon.ref;
+.controller('MainCtrl', ['$scope', '$state', '$http', 'BnCommon', function($scope, $state, $http, BnCommon) {
+  var ref = BnCommon.ref;
 
   if (!ref.getAuth()) {
     $state.go('login');
@@ -26,13 +26,9 @@ angular.module('bnw.main', [])
     $scope.pageIndex = 0;
     $scope.pageSize = 20;
 
-    $scope.dictUrl = "http://dict.cn";
-
-    $scope.newWord = {};
-
-    BnwCommon.getRef().on("child_added", update);
-    BnwCommon.getRef().on("child_changed", update);
-    BnwCommon.getRef().on("child_removed", update);
+    BnCommon.getRef().on("child_added", update);
+    BnCommon.getRef().on("child_changed", update);
+    BnCommon.getRef().on("child_removed", update);
 
     loadLatestData();
   }
@@ -40,14 +36,8 @@ angular.module('bnw.main', [])
   function onData(snapshot) {
     var itemList = [];
     snapshot.forEach(function(data) {
-      // console.log("The " + data.key() + " dinosaur's score is " + data.val());
       var item = data.val();
       item.key = data.key();
-      // var regex = new RegExp( '(' + item.word + ')', 'gi' );
-      if (!!item.sentence) {
-        item.sentenceHtml = item.sentence.replace(item.word, '<span class="highlight-word">'+ item.word +'</span>')
-      }
-      item.createDate = new Date(item.timestamp).toLocaleString();
       itemList.push(item);
     });
     if (itemList.length <= 0) return;
@@ -61,7 +51,7 @@ angular.module('bnw.main', [])
   }
 
   function loadLatestData() {
-    BnwCommon.getRef()
+    BnCommon.getRef()
         .orderByChild("timestamp")
         .limitToLast($scope.pageSize)
         .once("value", function(snapshot) {
@@ -79,46 +69,9 @@ angular.module('bnw.main', [])
       loadLatestData();
   }
 
-
-  $scope.addWord = function() {
-    $scope.newWord.timestamp = Wilddog.ServerValue.TIMESTAMP;
-    if (!!$scope.newWord.strpho) {
-      $scope.newWord.strpho = $scope.newWord.strpho.trim();
-      if ('[' != $scope.newWord.strpho[0]) $scope.newWord.strpho = '[' + $scope.newWord.strpho;
-      if (']' != $scope.newWord.strpho[$scope.newWord.strpho.length-1]) $scope.newWord.strpho = $scope.newWord.strpho + ']';
-    }
-    BnwCommon.getRef()
-      .push($scope.newWord)
-    $scope.newWord = {}
-  }
-
-  $scope.deleteWord = function(item) {
-    if (window.confirm("删除 '" + item.word + "' ？")) {
-      BnwCommon.getRef().child(item.key).remove(function () {
-      })
-    }
-  }
-
-  $scope.editWord = function(item) {
-    if (!item.word) return;
-
-    var newWord = {
-      word: item.word,
-      strpho: !!item.strpho ? item.strpho : '',
-      usertrans: !!item.usertrans ? item.usertrans : '',
-      basetrans: !!item.basetrans ? item.basetrans : '',
-      sentence: !!item.sentence ? item.sentence : '',
-      url: !!item.url ? item.url : '',
-      title: !!item.title ? item.title : '',
-      timestamp: !!item.timestamp ? item.timestamp : ''
-    }
-    BnwCommon.getRef().child(item.key).set(newWord);
-    item.edit = false;
-  }
-
   $scope.nextPage = function() {
     if ($scope.pageSize != $scope.itemList.length) return;
-    BnwCommon.getRef()
+    BnCommon.getRef()
         .orderByChild("timestamp")
         .endAt($scope.startAt-1) // NOTICE: display item is reversed
         .limitToLast($scope.pageSize)
@@ -126,7 +79,7 @@ angular.module('bnw.main', [])
   }
 
   $scope.prevPage = function() {
-    BnwCommon.getRef()
+    BnCommon.getRef()
         .orderByChild("timestamp")
         .startAt($scope.endAt+1) // NOTICE: display item is reversed
         .limitToFirst($scope.pageSize)
@@ -139,26 +92,11 @@ angular.module('bnw.main', [])
   $scope.goToDate = function() {
     $scope.endAtDate.setHours(23,59,59,999);
     $scope.endAt = $scope.endAtDate.getTime();
-    BnwCommon.getRef()
+    BnCommon.getRef()
         .orderByChild("timestamp")
         .endAt($scope.endAt) // NOTICE: display item is reversed
         .limitToLast($scope.pageSize)
         .once("value", onData)
-  }
-
-  $scope.searchWordOnDictCN = function() {
-    $http.jsonp("http://fanyi.dict.cn/search.php?jsoncallback=JSON_CALLBACK&q=" + $scope.newWord.word)
-    .success(function(data){
-        console.log(data);
-        $scope.newWord.basetrans = '';
-        if (!!data.out && !! data.out.translation) {
-          data.out.translation.forEach(function(item) {
-            $scope.newWord.basetrans += item.join();
-          })
-        }
-    });
-
-    $scope.dictUrl = 'http://dict.cn/' + $scope.newWord.word;
   }
 
   $scope.logout = function() {

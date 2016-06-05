@@ -2,15 +2,16 @@
 
 (function() {
   // Declare app level module which depends on views, and components
-  angular.module('bnw', [
+  angular.module('bn', [
     'ngSanitize',
     'templates',
     'ui.bootstrap',
     'ui.router',
-    'bnw.common',
-    'bnw.main',
-    'bnw.login',
-    'bnw.trans',
+    'bn.common',
+    'bn.main',
+    'bn.login',
+    'bn.components',
+    'bn.trans',
   ]).
   config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider){
     $locationProvider.hashPrefix('!');
