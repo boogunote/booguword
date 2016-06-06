@@ -8,3 +8,12 @@
   font-weight: bold;
   color: #094;
 }
+
+iframe.full {
+  position: fixed;
+  border: none;
+  top: 40px; right: 0;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: calc(100% - 40px);
+}

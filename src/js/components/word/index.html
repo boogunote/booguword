@@ -1,7 +1,8 @@
 <div ng-show="!edit">
   <div>
-    <a style="text-decoration: none; line-height: 1.25em; padding-right: 10px; font-weight: bold; font-size: 30px; color: #094; font-family: Verdana,Geneva,sans-serif;" href="http://dict.cn/{{data.word}}">{{data.word}}</a><span style="margin-right: 10px;">{{data.strpho}}</span><b style="margin-right: 10px;">{{data.usertrans}}</b><span>{{data.basetrans}}</span>
+    <a style="text-decoration: none; line-height: 1.25em; padding-right: 10px; font-weight: bold; font-size: 30px; color: #094; font-family: Verdana,Geneva,sans-serif; cursor: pointer;" href ng-click="showRef = !showRef">{{data.word}}</a><span style="margin-right: 10px;">{{data.strpho}}</span><b style="margin-right: 10px;">{{data.usertrans}}</b><span>{{data.basetrans}}</span>
   </div>
+  <bn-ref-directive ng-show="showRef" ng-model="data.word"></bn-ref-directive>
   <div ng-bind-html="sentenceHtml"></div>
   <a href="{{data.url}}" target="_blank">
     <span ng-if="!!data.title">{{data.title}}</span>

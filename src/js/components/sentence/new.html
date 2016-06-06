@@ -3,12 +3,12 @@
   <div ng-repeat="item in data.wordList">
     <input type="text" class="form-control" style="display: inline-block; width: calc(100% - 50px);" ng-model="item.word" placeholder="单词" ng-keyup="$event.keyCode == 13 && searchWordOnDictCN(item)">
     <a type="button" class="btn btn-default glyphicon glyphicon-minus" style="float: right;" ng-click="removeWord(item)"></a>
-    <input type="text" class="form-control" ng-model="item.comment" placeholder="注解" ng-keyup="$event.keyCode == 13 && add()">
+    <input type="text" class="form-control" ng-model="item.comment" placeholder="注解">
   </div>
   <a type="button" class="btn btn-default glyphicon glyphicon-plus" style="margin: 15px 0;" ng-click="addWord()"></a>
-  <input type="text" class="form-control" ng-model="data.title" placeholder="标题" ng-keyup="$event.keyCode == 13 && add()">
-  <input type="text" class="form-control" ng-model="data.url" placeholder="链接" ng-keyup="$event.keyCode == 13 && add()">
-  <button type="button" class="btn btn-default" style="margin: 15px 0;" ng-click="add()">添加</button>
+  <input type="text" class="form-control" ng-model="data.title" placeholder="标题">
+  <input type="text" class="form-control" ng-model="data.url" placeholder="链接">
+  <button type="button" class="btn btn-primary" style="margin: 15px 0;" ng-click="add()">添加</button>
   <button type="button" class="btn btn-default" style="margin: 15px 0; float: right;" ng-click="showDict = !showDict">字典</button>
   <button type="button" class="btn btn-default" style="margin: 15px 0; float: right;" ng-click="useLatestInfo()">填充</button>
 </form>

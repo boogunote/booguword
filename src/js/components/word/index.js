@@ -16,6 +16,7 @@ angular.module('bn.components.word',
 .controller('BnWordCtrl', ['$scope', 'BnCommon', function($scope, BnCommon) {
 
   $scope.edit = false;
+  $scope.showRef = false;
   
   function init() {
     if (!!$scope.data.sentence) {

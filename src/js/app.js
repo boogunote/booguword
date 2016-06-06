@@ -11,6 +11,7 @@
     'bn.main',
     'bn.login',
     'bn.components',
+    'bn.ref',
     'bn.trans',
   ]).
   config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider){

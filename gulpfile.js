@@ -132,6 +132,7 @@ var jsList = [
   './src/js/services/common.js',
   './src/js/login/index.js',
   './src/js/main/index.js',
+  './src/js/ref/index.js',
   './src/js/trans/index.js',
   './src/js/components/index.js',
   './src/js/components/word/index.js',
