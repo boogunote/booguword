@@ -17,3 +17,12 @@ iframe.full {
   width: 100%;
   height: calc(100% - 40px);
 }
+
+.link-list li {
+  display: inline;
+}
+
+.link-list li:before {
+  content:'\00B7';
+  padding-right:5px;
+}

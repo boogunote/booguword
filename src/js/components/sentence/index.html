@@ -1,5 +1,5 @@
 <div ng-show="!edit">
-  <span style="font-size: 16px;" ng-bind-html="sentenceHtml"></span><a class="glyphicon glyphicon-share-alt" style="margin-left: 5px;" href="https://www.bing.com/search?q={{data.sentence}}">Bing</a><a class="glyphicon glyphicon-share-alt" style="margin-left: 5px;" href="https://www.google.com/search?q={{data.sentence}}">Google</a>
+  <span style="font-size: 16px; margin-right:10px;" ng-bind-html="sentenceHtml"></span><span class="glyphicon glyphicon-link" style="font-size: 5px;"></span><a style="margin-left: 3px; margin-right: 5px;" href="https://www.bing.com/search?q={{data.sentence}}">Bing</a><span class="glyphicon glyphicon-link" style="font-size: 5px;"></span><a style="margin-left: 3px; margin-right: 5px;" href="https://www.google.com/search?q={{data.sentence}}">Google</a>
   <div ng-repeat="item in data.wordList">
     <a style="text-decoration: none; padding-right: 10px; font-weight: bold; color: #094; cursor: pointer;" href ng-click="item.showRef = !item.showRef">{{item.word}}</a><span style="margin-right: 10px;"><span>{{item.comment}}</span>
     <bn-ref-directive style="display: inline" ng-show="item.showRef" ng-model="item.word"></bn-ref-directive>
