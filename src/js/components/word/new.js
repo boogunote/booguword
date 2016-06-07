@@ -23,8 +23,8 @@ angular.module('bn.components.word.new',
       if ('[' != $scope.data.strpho[0]) $scope.data.strpho = '[' + $scope.data.strpho;
       if (']' != $scope.data.strpho[$scope.data.strpho.length-1]) $scope.data.strpho = $scope.data.strpho + ']';
     }
-    BnCommon.getRef()
-      .push($scope.data)
+    $scope.data.type = 'word';
+    BnCommon.getRef().push($scope.data)
     $scope.data = {}
   }
 

@@ -17,6 +17,8 @@ angular.module('bn.components.word',
 
   $scope.edit = false;
   $scope.showRef = false;
+  $scope.showDict = false;
+  $scope.dictUrl = 'http://dict.cn/' + $scope.data.word;
   
   function init() {
     if (!!$scope.data.sentence) {
@@ -43,7 +45,7 @@ angular.module('bn.components.word',
       sentence: !!$scope.data.sentence ? $scope.data.sentence : '',
       url: !!$scope.data.url ? $scope.data.url : '',
       title: !!$scope.data.title ? $scope.data.title : '',
-      type: $scope.data.type,
+      type: 'word',
       timestamp: $scope.data.timestamp
     }
     BnCommon.getRef().child($scope.data.key).set(newWord);
