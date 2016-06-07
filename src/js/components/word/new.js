@@ -43,4 +43,9 @@ angular.module('bn.components.word.new',
     $scope.dictUrl = 'http://dict.cn/' + $scope.data.word;
   }
 
+  $scope.useLatestInfo = function() {
+    $scope.data.title = $scope.itemList[0].title;
+    $scope.data.url = $scope.itemList[0].url;
+  }
+
 }]);

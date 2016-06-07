@@ -8,7 +8,7 @@
     <span ng-if="!!data.title">{{data.title}}</span>
     <span ng-if="!data.title">{{data.url}}</span>
   </a>
-  <div>{{createDate}}<button type="button" style="float: right" class="btn btn-default" ng-click="edit = true">修改</button></div>
+  <div>{{createDate}}<button type="button" style="float: right" class="btn btn-default glyphicon glyphicon-edit" ng-click="edit = true"></button></div>
 </div>
 <form ng-show="edit">
   <input type="text" class="form-control" ng-model="data.word" placeholder="单词" ng-keyup="$event.keyCode == 13 && update()">

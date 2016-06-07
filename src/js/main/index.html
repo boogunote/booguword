@@ -2,8 +2,8 @@
   <form name="form" style="margin-bottom: 5px;">
     <button type="button" class="btn btn-primary" ng-click="showAddWord = !showAddWord">单词</button>
     <button type="button" class="btn btn-primary" ng-click="showAddSentence = !showAddSentence">句子</button>
-    <button type="button" class="btn btn-primary" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()">上一页</button>
-    <button type="button" class="btn btn-primary" ng-show="itemList.length == pageSize" ng-click="nextPage()">下一页</button>
+    <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-up" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()"></button>
+    <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-down" ng-show="itemList.length == pageSize" ng-click="nextPage()"></button>
     <input type="date" name="endAtDate" ng-model="endAtDate"></input>
     <button type="button" class="btn btn-primary" ng-show="form.endAtDate.$valid" ng-click="goToDate()">Go</button>
   </form>
@@ -15,7 +15,7 @@
     <bn-sentence-directive ng-if="'sentence' == item.type" ng-model="item"></bn-sentence-directive>
     <hr>
   </div>
-  <button type="button" class="btn btn-primary" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()">上一页</button>
-  <button type="button" class="btn btn-primary" ng-show="itemList.length == pageSize" ng-click="nextPage()">下一页</button>
+  <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-up" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()"></button>
+  <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-down" ng-show="itemList.length == pageSize" ng-click="nextPage()"></button>
   <button type="button" style="float: right;" class="btn btn-primary" ng-click="logout()">退出</button>
 </div>
