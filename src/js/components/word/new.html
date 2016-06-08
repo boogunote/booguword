@@ -1,7 +1,7 @@
 <form class="new-word">
   <div>
-    <input type="text" style="display: inline-block; width: calc(100% - 100px);" class="form-control" ng-model="data.word" ng-keyup="$event.keyCode == 13 && searchWordOnDictCN()" placeholder="单词">
-    <button type="button" style="display: inline-block; width: 94px;" class="btn btn-primary" ng-click="searchWordOnDictCN()">查询</button>
+    <input type="text" style="display: inline-block; width: calc(100% - 50px);" class="form-control" ng-model="data.word" ng-keyup="$event.keyCode == 13 && searchWordOnDictCN()" placeholder="单词">
+    <a  class="btn btn-default glyphicon glyphicon-search" ng-click="searchWordOnDictCN()"></a>
   </div>
   <input type="text" class="form-control" ng-model="data.strpho" placeholder="音标">
   <input type="text" class="form-control" ng-model="data.usertrans" placeholder="当前含义">

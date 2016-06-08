@@ -1,9 +1,12 @@
 <form class="new-word">
   <textarea class="form-control" ng-model="data.sentence" placeholder="句子" rows="4"></textarea>
   <div ng-repeat="item in data.wordList">
-    <input type="text" class="form-control" style="display: inline-block; width: calc(100% - 50px);" ng-model="item.word" placeholder="单词" ng-keyup="$event.keyCode == 13 && searchWordOnDictCN(item)">
-    <a type="button" class="btn btn-default glyphicon glyphicon-minus" style="float: right;" ng-click="removeWord(item)"></a>
-    <input type="text" class="form-control" ng-model="item.comment" placeholder="注解">
+    <input type="text" class="form-control" style="display: inline-block; width: calc(100% - 100px);" ng-model="item.word" placeholder="单词" ng-keyup="$event.keyCode == 13 && searchWordOnDictCN(item)">
+    <span style="float: right;">
+      <a type="button" class="btn btn-default glyphicon glyphicon-search" ng-click="searchWordOnDictCN(item)"></a>
+      <a type="button" class="btn btn-default glyphicon glyphicon-minus" ng-click="removeWord(item)"></a>
+    </span>
+    <input type="text" class="form-control" ng-model="item.comment" placeholder="注解" ng-keyup="$event.keyCode == 13 && update()">
   </div>
   <a type="button" class="btn btn-default glyphicon glyphicon-plus" style="margin: 15px 0;" ng-click="addWord()"></a>
   <input type="text" class="form-control" ng-model="data.title" placeholder="标题">
