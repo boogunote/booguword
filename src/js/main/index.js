@@ -26,11 +26,11 @@ angular.module('bn.main', [])
     $scope.pageIndex = 0;
     $scope.pageSize = 20;
 
-    BnCommon.getRef().on("child_added", update);
-    BnCommon.getRef().on("child_changed", update);
-    BnCommon.getRef().on("child_removed", update);
-
-    loadLatestData();
+    loadLatestData(function() {
+      BnCommon.getRef().on("child_added", update);
+      BnCommon.getRef().on("child_changed", update);
+      BnCommon.getRef().on("child_removed", update);
+    });
   }
 
   function onData(snapshot) {
@@ -50,15 +50,18 @@ angular.module('bn.main', [])
     });
   }
 
-  function loadLatestData() {
+  function loadLatestData(cb) {
     BnCommon.getRef()
         .orderByChild("timestamp")
         .limitToLast($scope.pageSize)
         .once("value", function(snapshot) {
       onData(snapshot);
       $scope.safeApply(function() {
+        if (!$scope.itemList && $scope.itemList.length <= 0) return;
         $scope.latestTimestamp = $scope.itemList[0].timestamp;
       })
+
+      if (!!cb) cb();
     })
   }
 
