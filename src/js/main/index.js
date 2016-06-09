@@ -24,13 +24,9 @@ angular.module('bn.main', [])
   
   function init() {
     $scope.pageIndex = 0;
-    $scope.pageSize = 20;
+    $scope.pageSize = 10;
 
-    loadLatestData(function() {
-      BnCommon.getRef().on("child_added", update);
-      BnCommon.getRef().on("child_changed", update);
-      BnCommon.getRef().on("child_removed", update);
-    });
+    loadLatestPage();
   }
 
   function onData(snapshot) {
@@ -50,56 +46,50 @@ angular.module('bn.main', [])
     });
   }
 
-  function loadLatestData(cb) {
-    BnCommon.getRef()
+  function loadLatestPage() {
+    $scope.endAt = new Date('3000/01/01').getTime(); // I don't think english will exist after that time.
+    if (!!$scope.currPageRef) $scope.currPageRef.off('value');
+    $scope.currPageRef = BnCommon.getRef()
         .orderByChild("timestamp")
-        .limitToLast($scope.pageSize)
-        .once("value", function(snapshot) {
-      onData(snapshot);
-      $scope.safeApply(function() {
-        if (!$scope.itemList && $scope.itemList.length <= 0) return;
-        $scope.latestTimestamp = $scope.itemList[0].timestamp;
-      })
+        .endAt($scope.endAt) // NOTICE: displayed items are reversed
+        .limitToLast($scope.pageSize);
 
-      if (!!cb) cb();
-    })
-  }
-
-  function update() {
-    if (!!$scope.itemList &&
-          $scope.itemList.length > 0 &&
-          $scope.latestTimestamp == $scope.itemList[0].timestamp)
-      loadLatestData();
+    $scope.currPageRef.on("value", onData)
   }
 
   $scope.nextPage = function() {
     if ($scope.pageSize != $scope.itemList.length) return;
-    BnCommon.getRef()
+    if (!!$scope.currPageRef) $scope.currPageRef.off('value');
+    $scope.currPageRef = BnCommon.getRef()
         .orderByChild("timestamp")
-        .endAt($scope.startAt-1) // NOTICE: display item is reversed
-        .limitToLast($scope.pageSize)
-        .once("value", onData)
+        .endAt($scope.startAt-1) // NOTICE: displayed items are reversed
+        .limitToLast($scope.pageSize);
+
+    $scope.currPageRef.on("value", onData)
   }
 
   $scope.prevPage = function() {
-    BnCommon.getRef()
+    if (!!$scope.currPageRef) $scope.currPageRef.off('value');
+    $scope.currPageRef = BnCommon.getRef()
         .orderByChild("timestamp")
-        .startAt($scope.endAt+1) // NOTICE: display item is reversed
-        .limitToFirst($scope.pageSize)
-        .once("value",  function(snapshot) {
+        .startAt($scope.endAt+1) // NOTICE: displayed items are reversed
+        .limitToFirst($scope.pageSize);
+
+    $scope.currPageRef.on("value",  function(snapshot) {
       onData(snapshot);
-      if ($scope.itemList.length != $scope.pageSize) loadLatestData();
+      if ($scope.itemList.length != $scope.pageSize) loadLatestPage();
     })
   }
 
   $scope.goToDate = function() {
     $scope.endAtDate.setHours(23,59,59,999);
     $scope.endAt = $scope.endAtDate.getTime();
-    BnCommon.getRef()
+    if (!!$scope.currPageRef) $scope.currPageRef.off('value');
+    $scope.currPageRef = BnCommon.getRef()
         .orderByChild("timestamp")
-        .endAt($scope.endAt) // NOTICE: display item is reversed
-        .limitToLast($scope.pageSize)
-        .once("value", onData)
+        .endAt($scope.endAt) // NOTICE: displayed items are reversed
+        .limitToLast($scope.pageSize);
+    $scope.currPageRef.on("value", onData)
   }
 
   $scope.logout = function() {

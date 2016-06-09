@@ -18,6 +18,8 @@ angular.module('bn.components.sentence',
   $scope.edit = false;
   $scope.showDict = false;
   $scope.dictUrl = "http://dict.cn";
+
+  $scope.data.showRef = false;
   
   function init() {
     if (!!$scope.data.sentence) {
