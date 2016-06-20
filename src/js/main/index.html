@@ -1,17 +1,14 @@
 <div style="padding: 8px;">
   <form name="form" style="margin-bottom: 5px;">
-    <button type="button" class="btn btn-primary" ng-click="showAddWord = !showAddWord">单词</button>
     <button type="button" class="btn btn-primary" ng-click="showAddSentence = !showAddSentence">句子</button>
     <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-up" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()"></button>
     <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-down" ng-show="itemList.length == pageSize" ng-click="nextPage()"></button>
     <input type="date" name="endAtDate" ng-model="endAtDate"></input>
     <button type="button" class="btn btn-primary" ng-show="form.endAtDate.$valid" ng-click="goToDate()">Go</button>
   </form>
-  <bn-word-new-directive ng-if="showAddWord"></bn-word-new-directive>
   <bn-sentence-new-directive ng-if="showAddSentence"></bn-sentence-new-directive>
   <hr>
   <div ng-repeat="item in itemList">
-    <bn-word-directive ng-if="'word' == item.type" ng-model="item"></bn-word-directive>
     <bn-sentence-directive ng-if="'sentence' == item.type" ng-model="item"></bn-sentence-directive>
     <hr>
   </div>

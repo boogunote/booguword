@@ -135,8 +135,6 @@ var jsList = [
   './src/js/ref/index.js',
   './src/js/trans/index.js',
   './src/js/components/index.js',
-  './src/js/components/word/index.js',
-  './src/js/components/word/new.js',
   './src/js/components/sentence/index.js',
   './src/js/components/sentence/new.js',
   './src/js/app.js',
