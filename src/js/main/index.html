@@ -1,20 +1,4 @@
 <div style="padding: 8px;">
-  <form name="form" style="margin-bottom: 5px;">
-    <button type="button" class="btn btn-primary" ng-click="showNewItem = true">新增</button>
-    <input type="date" name="endAtDate" ng-model="endAtDate"></input>
-    <button type="button" class="btn btn-primary" ng-show="form.endAtDate.$valid" ng-click="goToDate()">Go</button>
-    <span style="float: right">
-      <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-left" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()"></button>
-      <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-right" ng-show="itemList.length == pageSize" ng-click="nextPage()"></button>
-    </span>
-  </form>
-  <bn-sentence-new-directive ng-if="showNewItem"></bn-sentence-new-directive>
-  <hr>
-  <div ng-repeat="item in itemList">
-    <bn-sentence-directive ng-if="'sentence' == item.type" ng-model="item"></bn-sentence-directive>
-    <hr>
-  </div>
-  <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-left" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()"></button>
-  <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-right" ng-show="itemList.length == pageSize" ng-click="nextPage()"></button>
+  <bn-sentence></bn-sentence>
   <button type="button" style="float: right;" class="btn btn-primary" ng-click="logout()">退出</button>
 </div>

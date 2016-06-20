@@ -1,0 +1,19 @@
+<form class="new-word">
+  <textarea class="form-control" ng-model="data.sentence" placeholder="句子" rows="4"></textarea>
+  <div ng-repeat="item in data.wordList">
+    <input type="text" class="form-control" style="display: inline-block; width: calc(100% - 100px);" ng-model="item.word" placeholder="单词" ng-keyup="$event.keyCode == 13 && searchWordOnDictCN(item)">
+    <span style="float: right;">
+      <a type="button" class="btn btn-default glyphicon glyphicon-search" ng-click="searchWordOnDictCN(item)"></a>
+      <a type="button" class="btn btn-default glyphicon glyphicon-minus" ng-click="removeWord(item)"></a>
+    </span>
+    <input type="text" class="form-control" ng-model="item.comment" placeholder="注解" ng-keyup="$event.keyCode == 13 && update()">
+  </div>
+  <a type="button" class="btn btn-default glyphicon glyphicon-plus" style="margin: 15px 0;" ng-click="addWord()"></a>
+  <input type="text" class="form-control" ng-model="data.title" placeholder="标题">
+  <input type="text" class="form-control" ng-model="data.url" placeholder="链接">
+  <button type="button" class="btn btn-primary" style="margin: 15px 0;" ng-click="add()">添加</button>
+  <button type="button" class="btn btn-default" style="margin: 15px 0;" ng-click="$parent.showNewItem = false">取消</button>
+  <button type="button" class="btn btn-default" style="margin: 15px 0; float: right;" ng-click="showDict = !showDict">字典</button>
+  <button type="button" class="btn btn-default" style="margin: 15px 0; float: right;" ng-click="useLatestInfo()">填充</button>
+</form>
+<iframe ng-if="showDict" id="dict-cn" src="{{dictUrl | trustAsResourceUrl}}" style="width: 100%; height: 400px;"></iframe>

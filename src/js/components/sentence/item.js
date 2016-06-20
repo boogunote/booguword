@@ -3,17 +3,17 @@
 angular.module('bn.components.sentence',
     ['bn.common'])
 
-.directive('bnSentenceDirective', ['BnCommon', function(BnCommon) {
+.directive('bnSentenceItemDirective', ['BnCommon', function(BnCommon) {
   return {
     scope: {
       data: '=ngModel',
     },
     templateUrl: 'js/components/sentence/index.html',
-    controller: 'BnSentenceCtrl'
+    controller: 'BnSentenceItemCtrl'
   };
 }])
 
-.controller('BnSentenceCtrl', ['$scope', 'BnCommon', '$http', function($scope, BnCommon, $http) {
+.controller('BnSentenceItemCtrl', ['$scope', 'BnCommon', '$http', function($scope, BnCommon, $http) {
 
   $scope.edit = false;
   $scope.showDict = false;

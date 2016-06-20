@@ -9,10 +9,10 @@
     'ui.router',
     'bn.common',
     'bn.main',
+    'bn.sentence',
     'bn.login',
-    'bn.components',
     'bn.ref',
-    'bn.trans',
+    'bn.trans'
   ]).
   config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider){
     $locationProvider.hashPrefix('!');

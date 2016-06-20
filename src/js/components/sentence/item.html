@@ -1,0 +1,31 @@
+<div ng-show="!edit">
+  <span style="font-size: 16px; margin-right:10px;" ng-bind-html="sentenceHtml"></span><span class="glyphicon glyphicon-link" style="font-size: 5px;"></span><a style="margin-left: 3px; margin-right: 5px;" href="https://www.bing.com/search?q={{data.sentence}}">Bing</a><span class="glyphicon glyphicon-link" style="font-size: 5px;"></span><a style="margin-left: 3px; margin-right: 5px;" href="https://www.google.com/search?q={{data.sentence}}">Google</a>
+  <div ng-repeat="item in data.wordList">
+    <a style="text-decoration: none; padding-right: 10px; font-weight: bold; color: #094; cursor: pointer;" href ng-click="item.showRef = !item.showRef">{{item.word}}</a><span style="margin-right: 10px;"><span>{{item.comment}}</span>
+    <bn-ref-directive style="display: inline" ng-show="item.showRef" ng-model="item.word"></bn-ref-directive>
+  </div>
+  <a href="{{data.url}}" target="_blank">
+    <span ng-if="!!data.title">{{data.title}}</span>
+    <span ng-if="!data.title">{{data.url}}</span>
+  </a>
+  <div>{{createDate}}<button type="button" style="float: right" class="btn btn-default glyphicon glyphicon-edit" ng-click="edit = true"></button></div>
+</div>
+<form class="new-word" ng-show="edit">
+  <textarea class="form-control" ng-model="data.sentence" placeholder="句子" rows="4"></textarea>
+  <div ng-repeat="item in data.wordList">
+    <input type="text" class="form-control" style="display: inline-block; width: calc(100% - 100px);" ng-model="item.word" placeholder="单词" ng-keyup="$event.keyCode == 13 && searchWordOnDictCN(item)">
+    <span style="float: right;">
+      <a type="button" class="btn btn-default glyphicon glyphicon-search" ng-click="searchWordOnDictCN(item)"></a>
+      <a type="button" class="btn btn-default glyphicon glyphicon-minus" ng-click="removeWord(item)"></a>
+    </span>
+    <input type="text" class="form-control" ng-model="item.comment" placeholder="注解" ng-keyup="$event.keyCode == 13 && update()">
+  </div>
+  <a type="button" class="btn btn-default glyphicon glyphicon-plus" style="margin: 15px 0;" ng-click="addWord()"></a>
+  <input type="text" class="form-control" ng-model="data.title" placeholder="标题" ng-keyup="$event.keyCode == 13 && update()">
+  <input type="text" class="form-control" ng-model="data.url" placeholder="链接" ng-keyup="$event.keyCode == 13 && update()">
+  <button type="button" class="btn btn-primary" ng-click="update()">确定</button>
+  <button type="button" class="btn btn-default" ng-click="edit = false; showDict = false;">取消</button>
+  <button type="button" class="btn btn-default" ng-click="delete()">删除</button>
+  <button type="button" class="btn btn-default" ng-click="showDict = !showDict">字典</button>
+</form>
+<iframe ng-if="showDict" id="dict-cn" src="{{dictUrl | trustAsResourceUrl}}" style="width: 100%; height: 400px;"></iframe>
