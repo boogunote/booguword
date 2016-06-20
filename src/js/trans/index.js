@@ -24,20 +24,37 @@ angular.module('bn.trans', [])
   
   function init() {
     BnCommon.getRef()
+    .orderByChild('type')
+    .equalTo('word')
     .once("value", function(snapshot) {
       var data = snapshot.val();
       for (var key in data) {
-        data[key].type = 'word';
+        var newData = {
+          sentence: !!data[key].sentence?data[key].sentence:'',
+          timestamp: data[key].timestamp,
+          title: !!data[key].title?data[key].title:'',
+          type: 'sentence',
+          url: !!data[key].url?data[key].url:'',
+          wordList: [{
+            comment: (!!data[key].strpho?data[key].strpho:'') + ' ' + (!!data[key].mytrans?data[key].mytrans:'') + ' ' + (!!data[key].basetrans?data[key].basetrans:'') + ' ' + (!!data[key].usertrans?data[key].usertrans:''),
+            word: data[key].word
+          }]
+        }
+        data[key] = newData;
       }
       $scope.data = data;
       $scope.safeApply(function() {
         $scope.dataStr = JSON.stringify(data, null, 2);
       })
+    }, function(result) {
+      console.log(result)
     })
   }
 
   $scope.go = function() {
-    BnCommon.getRef().set($scope.data)
+    for(var key in $scope.data) {
+      BnCommon.getRef().child(key).set($scope.data[key])
+    }
   }
 
   init();
