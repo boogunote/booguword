@@ -12,6 +12,7 @@
   <input type="text" class="form-control" ng-model="data.title" placeholder="标题">
   <input type="text" class="form-control" ng-model="data.url" placeholder="链接">
   <button type="button" class="btn btn-primary" style="margin: 15px 0;" ng-click="add()">添加</button>
+  <button type="button" class="btn btn-default" style="margin: 15px 0;" ng-click="$parent.showNewItem = false">取消</button>
   <button type="button" class="btn btn-default" style="margin: 15px 0; float: right;" ng-click="showDict = !showDict">字典</button>
   <button type="button" class="btn btn-default" style="margin: 15px 0; float: right;" ng-click="useLatestInfo()">填充</button>
 </form>

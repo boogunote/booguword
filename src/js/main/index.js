@@ -54,7 +54,15 @@ angular.module('bn.main', [])
         .endAt($scope.endAt) // NOTICE: displayed items are reversed
         .limitToLast($scope.pageSize);
 
-    $scope.currPageRef.on("value", onData)
+    $scope.currPageRef.on("value", function(snapshot) {
+      onData(snapshot);
+      var itemList = snapshot.val();
+      $scope.latestTimestamp = 0;
+      for (var key in itemList) {
+        if (itemList[key].timestamp > $scope.latestTimestamp)
+          $scope.latestTimestamp = itemList[key].timestamp;
+      }
+    })
   }
 
   $scope.nextPage = function() {
