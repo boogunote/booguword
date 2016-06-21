@@ -7,9 +7,11 @@
     'templates',
     'ui.bootstrap',
     'ui.router',
+    'monospaced.elastic',
     'bn.common',
     'bn.main',
     'bn.sentence',
+    'bn.reading_note',
     'bn.login',
     'bn.ref',
     'bn.trans'

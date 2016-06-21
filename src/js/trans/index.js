@@ -23,7 +23,7 @@ angular.module('bn.trans', [])
   });
   
   function init() {
-    BnCommon.getRef()
+    BnCommon.getRef('bnword')
     .orderByChild('type')
     .equalTo('word')
     .once("value", function(snapshot) {
@@ -53,7 +53,7 @@ angular.module('bn.trans', [])
 
   $scope.go = function() {
     for(var key in $scope.data) {
-      BnCommon.getRef().child(key).set($scope.data[key])
+      BnCommon.getRef('bnword').child(key).set($scope.data[key])
     }
   }
 

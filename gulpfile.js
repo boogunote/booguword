@@ -128,6 +128,7 @@ var jsList = [
   // './src/bower_components/angular-translate/angular-translate.js',
   './src/bower_components/angular-sanitize/angular-sanitize.js',
   './src/bower_components/wilddog/wilddog.js',
+  './src/bower_components/angular-elastic/elastic.js',
   './tmp/templates.js',
   './src/js/services/common.js',
   './src/js/login/index.js',
@@ -137,6 +138,8 @@ var jsList = [
   './src/js/sentence/index.js',
   './src/js/sentence/item.js',
   './src/js/sentence/new.js',
+  './src/js/reading_note/index.js',
+  './src/js/reading_note/item.js',
   './src/js/app.js',
 ]
 

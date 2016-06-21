@@ -30,7 +30,7 @@ angular.module('bn.sentence.new',
     for (var i in $scope.data.wordList) {
       delete $scope.data.wordList[i].$$hashKey;
     }
-    BnCommon.getRef().push($scope.data);
+    BnCommon.getRef('bnword').push($scope.data);
 
     $scope.data = {
       sentence: '',

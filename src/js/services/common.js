@@ -5,8 +5,8 @@ angular.module('bn.common', [])
 
   self.ref = new Wilddog("https://bn.wilddogio.com/");
 
-  self.getRef = function() {
-    return self.ref.child(self.ref.getAuth().uid).child('/bnword/items/')
+  self.getRef = function(type) {
+    return self.ref.child(self.ref.getAuth().uid).child('/' + type + '/items/')
   }
 
   self.initScope = function(scope, type) {
@@ -87,6 +87,10 @@ angular.module('bn.common', [])
           .limitToLast(scope.pageSize);
       scope.currPageRef.on("value", onData)
     }
+
+    scope.$on("$destroy", function() {
+      scope.currPageRef.off("value", onData)
+    })
   }
 
   return self;

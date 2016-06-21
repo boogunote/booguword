@@ -32,7 +32,7 @@ angular.module('bn.sentence.item', ['bn.common'])
 
   $scope.delete = function() {
     if (window.confirm("删除 ？")) {
-      BnCommon.getRef().child($scope.data.key).remove(function () {
+      BnCommon.getRef('bnword').child($scope.data.key).remove(function () {
       })
     }
   }
@@ -71,7 +71,7 @@ angular.module('bn.sentence.item', ['bn.common'])
       delete $scope.data.wordList[i].$$hashKey;
     }
     delete $scope.data.$$hashKey;
-    BnCommon.getRef().child($scope.data.key).set($scope.data);
+    BnCommon.getRef('bnword').child($scope.data.key).set($scope.data);
     $scope.edit = false;
     $scope.showDict = false;
   }

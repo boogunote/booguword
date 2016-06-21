@@ -1,6 +1,6 @@
 <div style="margin-top: 10px">
   <form name="form" style="margin-bottom: 5px;">
-    <button type="button" class="btn btn-primary" ng-click="showNewItem = true">新增</button>
+    <button type="button" class="btn btn-primary" ng-click="newNote()">新增</button>
     <input type="date" name="endAtDate" ng-model="endAtDate"></input>
     <button type="button" class="btn btn-primary" ng-show="form.endAtDate.$valid" ng-click="goToDate()">Go</button>
     <span style="float: right">
@@ -8,10 +8,9 @@
       <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-right" ng-show="itemList.length == pageSize" ng-click="nextPage()"></button>
     </span>
   </form>
-  <bn-sentence-new ng-if="showNewItem"></bn-sentence-new>
   <hr>
   <div ng-repeat="item in itemList">
-    <bn-sentence-item ng-if="'sentence' == item.type" ng-model="item"></bn-sentence-item>
+    <bn-reading-note-item ng-model="item"></bn-reading-note-item>
     <hr>
   </div>
   <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-left" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()"></button>

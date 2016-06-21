@@ -1,4 +1,11 @@
 <div style="padding: 8px;">
-  <bn-sentence></bn-sentence>
+  <uib-tabset active="active">
+    <uib-tab index="0" heading="语句" select="showSentence = true" deselect="showSentence = false">
+      <bn-sentence ng-if="showSentence"></bn-sentence>
+    </uib-tab>
+    <uib-tab index="1" heading="笔记" select="showReadingNote = true" deselect="showReadingNote = false">
+      <bn-reading-note ng-if="showReadingNote"></bn-reading-note>
+    </uib-tab>
+  </uib-tabset>
   <button type="button" style="float: right;" class="btn btn-primary" ng-click="logout()">退出</button>
 </div>
