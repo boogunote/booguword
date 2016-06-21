@@ -14,14 +14,19 @@ angular.module('bn.ref', [])
 
 .controller('BnRefCtrl', ['$scope', 'BnCommon', function($scope, BnCommon) {
 
-  $scope.srcList = [{
-    name: 'Dict.cn',
-    url: 'http://dict.cn/' + $scope.data
+  $scope.srcList = [
+  {
+    name: 'MerrWeb',
+    url: 'http://www.merriam-webster.com/dictionary/' + $scope.data
   },
   {
     name: 'Wiki',
     url: 'http://www.bing.com/search?q=' + $scope.data + '+site%3Aen.wikipedia.org'
 
+  },
+  {
+    name: 'Dict.cn',
+    url: 'http://dict.cn/' + $scope.data
   },
   {
     name: 'Urban',
@@ -42,9 +47,5 @@ angular.module('bn.ref', [])
   {
     name: 'Scholar',
     url: 'https://scholar.google.com/scholar?hl=en&q=' + $scope.data + '&btnG=&as_sdt=1%2C5&as_sdtp='
-  },
-  {
-    name: 'Merriam-Webster',
-    url: 'http://www.merriam-webster.com/dictionary/' + $scope.data
   }]
 }]);
