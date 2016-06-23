@@ -24,6 +24,7 @@ angular.module('bn.sentence.item', ['bn.common'])
     if (!!$scope.data.sentence) {
       $scope.sentenceHtml = $scope.data.sentence;
       for (var i in $scope.data.wordList) {
+        delete $scope.data.wordList[i].showRef;
         $scope.sentenceHtml = $scope.sentenceHtml.replace($scope.data.wordList[i].word, '<span class="highlight-word">'+ $scope.data.wordList[i].word +'</span>')
       }
     }
@@ -69,6 +70,7 @@ angular.module('bn.sentence.item', ['bn.common'])
     // }
     for (var i in $scope.data.wordList) {
       delete $scope.data.wordList[i].$$hashKey;
+      delete $scope.data.wordList[i].showRef;
     }
     delete $scope.data.$$hashKey;
     BnCommon.getRef('bnword').child($scope.data.key).set($scope.data);

@@ -22,6 +22,7 @@ angular.module('bn.reading_note', [
       note: '',
       title: '',
       url: '',
+      editTitle: true,
       timestamp: Wilddog.ServerValue.TIMESTAMP
     });
   }
