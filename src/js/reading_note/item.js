@@ -27,9 +27,7 @@ angular.module('bn.reading_note.item', ['bn.common'])
   $scope.delete = function() {
 
     if (window.confirm("删除 '" + $scope.data.title +"' ?")) {
-      $scope.$emit('shutdown-message');
       BnCommon.getRef('reading_note').child($scope.data.key).remove(function () {
-        $scope.$emit('open-message');
       })
     }
   }

@@ -1,14 +1,12 @@
 <div style="margin-top: 10px">
   <form name="form" style="margin-bottom: 5px;">
-    <button type="button" class="btn btn-primary" ng-click="newNote()">新增</button>
+    <button type="button" class="btn btn-primary glyphicon glyphicon-plus" ng-click="newNote()"></button>
     <input type="date" class="date" name="endAtDate" ng-model="endAtDate"></input>
-    <button type="button" class="btn btn-primary" ng-show="form.endAtDate.$valid" ng-click="goToDate()">Go</button>
+    <button type="button" class="btn btn-primary glyphicon glyphicon-arrow-right" ng-show="form.endAtDate.$valid" ng-click="goToDate()"></button>
+    <select class="page-size" ng-model="pageSize" ng-options="item for item in pageSizeList" ng-change="changePageSize()"></select>
+    <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-left" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()"></button>
+    <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-right" ng-show="itemList.length == pageSize" ng-click="nextPage()"></button>
     <input type="checkbox" ng-model="openAll" style="margin: 5px;">所有</input>
-    <span style="float: right">
-      <select class="page-size" ng-model="pageSize" ng-options="item for item in pageSizeList" ng-change="changePageSize()"></select>
-      <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-left" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()"></button>
-      <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-right" ng-show="itemList.length == pageSize" ng-click="nextPage()"></button>
-    </span>
   </form>
   <hr>
   <div ng-repeat="item in itemList">

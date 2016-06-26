@@ -1,13 +1,11 @@
 <div style="margin-top: 10px">
   <form name="form" style="margin-bottom: 5px;">
-    <button type="button" class="btn btn-primary" ng-click="showNewItem = true">新增</button>
+    <button type="button" class="btn btn-primary glyphicon glyphicon-plus" ng-click="showNewItem = true"></button>
     <input type="date" class="date" name="endAtDate" ng-model="endAtDate"></input>
-    <button type="button" class="btn btn-primary" ng-show="form.endAtDate.$valid" ng-click="goToDate()">Go</button>
-    <span style="float: right">
-      <select class="page-size" ng-model="pageSize" ng-options="item for item in pageSizeList" ng-change="changePageSize()"></select>
-      <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-left" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()"></button>
-      <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-right" ng-show="itemList.length == pageSize" ng-click="nextPage()"></button>
-    </span>
+    <button type="button" class="btn btn-primary glyphicon glyphicon-arrow-right" ng-show="form.endAtDate.$valid" ng-click="goToDate()"></button>
+    <select class="page-size" ng-model="pageSize" ng-options="item for item in pageSizeList" ng-change="changePageSize()"></select>
+    <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-left" ng-show="latestTimestamp != itemList[0].timestamp" ng-click="prevPage()"></button>
+    <button type="button" class="btn btn-primary glyphicon glyphicon-chevron-right" ng-show="itemList.length == pageSize" ng-click="nextPage()"></button>
   </form>
   <bn-sentence-new ng-if="showNewItem"></bn-sentence-new>
   <hr>
