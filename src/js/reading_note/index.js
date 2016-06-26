@@ -12,7 +12,8 @@ angular.module('bn.reading_note', [
   };
 }])
 
-.controller('BnReadingNoteCtrl', ['$scope', 'BnCommon', '$http', function($scope, BnCommon, $http) {
+.controller('BnReadingNoteCtrl', ['$scope', 'BnCommon', '$http', '$timeout', '$rootScope',
+    function($scope, BnCommon, $http, $timeout, $rootScope) {
   BnCommon.initScope($scope, 'reading_note');
 
   $scope.init();
@@ -26,4 +27,9 @@ angular.module('bn.reading_note', [
       timestamp: Wilddog.ServerValue.TIMESTAMP
     });
   }
+
+  $timeout(function() {
+    $rootScope.$broadcast('elastic:adjust');
+  }, 200);
+
 }])

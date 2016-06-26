@@ -13,9 +13,18 @@ angular.module('bn.common', [])
     scope.init = function() {
       scope.pageIndex = 0;
       scope.pageSize = 10;
+      scope.shutdownMessage = false;
 
       loadLatestPage();
     }
+
+    scope.$on('open-message', function() {
+      scope.shutdownMessage = false;
+    })
+
+    scope.$on('shutdown-message', function() {
+      scope.shutdownMessage = true;
+    })
 
     function onData(snapshot) {
       var itemList = [];
@@ -34,6 +43,12 @@ angular.module('bn.common', [])
       });
     }
 
+    function msgOnOffHandlerCreator(nextHandler) {
+      return function(snapshot) {
+        if (!scope.shutdownMessage) nextHandler(snapshot)
+      }
+    }
+
     function loadLatestPage() {
       scope.endAt = new Date('3000/01/01').getTime(); // I don't think english will exist after that time.
       if (!!scope.currPageRef) scope.currPageRef.off('value');
@@ -42,7 +57,7 @@ angular.module('bn.common', [])
           .endAt(scope.endAt) // NOTICE: displayed items are reversed
           .limitToLast(scope.pageSize);
 
-      scope.currPageRef.on("value", function(snapshot) {
+      scope.currPageRef.on("value", msgOnOffHandlerCreator(function(snapshot) {
         onData(snapshot);
         var itemList = snapshot.val();
         scope.latestTimestamp = 0;
@@ -50,7 +65,7 @@ angular.module('bn.common', [])
           if (itemList[key].timestamp > scope.latestTimestamp)
             scope.latestTimestamp = itemList[key].timestamp;
         }
-      })
+      }))
     }
 
     scope.nextPage = function() {
@@ -61,7 +76,9 @@ angular.module('bn.common', [])
           .endAt(scope.startAt-1) // NOTICE: displayed items are reversed
           .limitToLast(scope.pageSize);
 
-      scope.currPageRef.on("value", onData)
+      scope.currPageRef.on("value", msgOnOffHandlerCreator(function(snapshot) {
+        onData(snapshot);
+      }))
     }
 
     scope.prevPage = function() {
@@ -71,21 +88,23 @@ angular.module('bn.common', [])
           .startAt(scope.endAt+1) // NOTICE: displayed items are reversed
           .limitToFirst(scope.pageSize);
 
-      scope.currPageRef.on("value",  function(snapshot) {
+      scope.currPageRef.on("value", msgOnOffHandlerCreator(function(snapshot) {
         onData(snapshot);
         if (scope.itemList.length != scope.pageSize) loadLatestPage();
-      })
+      }))
     }
 
     scope.goToDate = function() {
-        scope.endAtDate.setHours(23,59,59,999);
-        scope.endAt = scope.endAtDate.getTime();
-        if (!!scope.currPageRef) scope.currPageRef.off('value');
-        scope.currPageRef = self.getRef(type)
-            .orderByChild("timestamp")
-          .endAt(scope.endAt) // NOTICE: displayed items are reversed
-          .limitToLast(scope.pageSize);
-      scope.currPageRef.on("value", onData)
+      scope.endAtDate.setHours(23,59,59,999);
+      scope.endAt = scope.endAtDate.getTime();
+      if (!!scope.currPageRef) scope.currPageRef.off('value');
+      scope.currPageRef = self.getRef(type)
+          .orderByChild("timestamp")
+        .endAt(scope.endAt) // NOTICE: displayed items are reversed
+        .limitToLast(scope.pageSize);
+      scope.currPageRef.on("value", msgOnOffHandlerCreator(function(snapshot) {
+        onData(snapshot);
+      }))
     }
 
     scope.$on("$destroy", function() {
