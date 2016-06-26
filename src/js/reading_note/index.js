@@ -14,6 +14,9 @@ angular.module('bn.reading_note', [
 
 .controller('BnReadingNoteCtrl', ['$scope', 'BnCommon', '$http', '$timeout', '$rootScope',
     function($scope, BnCommon, $http, $timeout, $rootScope) {
+
+  $scope.openAll = false;
+  
   BnCommon.initScope($scope, 'reading_note');
 
   $scope.init();

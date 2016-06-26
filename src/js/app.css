@@ -38,3 +38,18 @@ iframe.full {
   content:'\00B7';
   padding-right:5px;
 }
+
+.date {
+  margin: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  vertical-align: -2px;
+  border: solid 1px #ccc;
+}
+
+.page-size {
+  padding: 5px;
+  vertical-align: -2px;
+  border-radius: 4px;
+  border: solid 1px #ccc;
+}

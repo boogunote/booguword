@@ -12,6 +12,7 @@ angular.module('bn.common', [])
   self.initScope = function(scope, type) {
     scope.init = function() {
       scope.pageIndex = 0;
+      scope.pageSizeList = [5, 10, 20, 50, 100];
       scope.pageSize = 10;
       scope.shutdownMessage = false;
 
@@ -91,6 +92,18 @@ angular.module('bn.common', [])
       scope.currPageRef.on("value", msgOnOffHandlerCreator(function(snapshot) {
         onData(snapshot);
         if (scope.itemList.length != scope.pageSize) loadLatestPage();
+      }))
+    }
+
+    scope.changePageSize = function() {
+      if (!!scope.currPageRef) scope.currPageRef.off('value');
+      scope.currPageRef = self.getRef(type)
+          .orderByChild("timestamp")
+          .endAt(scope.startAt) // NOTICE: displayed items are reversed
+          .limitToLast(scope.pageSize);
+
+      scope.currPageRef.on("value", msgOnOffHandlerCreator(function(snapshot) {
+        onData(snapshot);
       }))
     }
 

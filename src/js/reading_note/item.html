@@ -6,8 +6,8 @@
     </a>
     <span ng-if="!data.url">{{data.title}}</span>
     <span style="float: right">
-      <button type="button" class="btn btn-default glyphicon glyphicon-edit" ng-show="!data.contentCollapsed" ng-click="data.editTitle = true"></button>
-      <button type="button" class="btn btn-default glyphicon" ng-class="{'glyphicon-triangle-top': !data.contentCollapsed, 'glyphicon-triangle-bottom': !!data.contentCollapsed}" ng-click="data.contentCollapsed = !data.contentCollapsed; save();"></button>
+      <button type="button" class="btn btn-default glyphicon glyphicon-edit" ng-click="data.editTitle = true"></button>
+      <button type="button" class="btn btn-default glyphicon" ng-class="{'glyphicon-triangle-top': !data.contentCollapsed, 'glyphicon-triangle-bottom': !!data.contentCollapsed}"  ng-show="!$parent.$parent.openAll" ng-click="data.contentCollapsed = !data.contentCollapsed; save();"></button>
     </span>
   </div>
   <div ng-show="!!data.editTitle">
@@ -17,6 +17,6 @@
     <button type="button" class="btn btn-default" ng-click="delete()">删除</button>
     <input type="text" class="form-control" ng-show="showUrl" ng-model="data.url" placeholder="链接"></input>
   </div>
-  <textarea msd-elastic style="width: 100%; padding: 8px; border-radius: 5px; border-color: #eee;" ng-show="!data.contentCollapsed" ng-model="data.note" ng-keydown="onKeyDown($event)" ng-change="modified = true" ng-blur="save()" placeholder="笔记"></textarea>
+  <textarea msd-elastic style="width: 100%; padding: 8px; border-radius: 5px; border-color: #eee;" ng-show="!data.contentCollapsed || $parent.$parent.openAll" ng-model="data.note" ng-keydown="onKeyDown($event)" ng-change="modified = true" ng-blur="save()" placeholder="笔记"></textarea>
   <div style="margin-top: 5px">{{createDate}}<button type="button" class="btn btn-primary" style="margin-left: 10px;" ng-show="modified" ng-click="edit = false; save()">保存</button></div>
 </div>
