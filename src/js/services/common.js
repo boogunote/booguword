@@ -123,6 +123,21 @@ angular.module('bn.common', [])
     scope.$on("$destroy", function() {
       scope.currPageRef.off("value", onData)
     })
+
+    // NOTICE: Why need this function? Wilddog advocates they can push any changes realtime.
+    // However they just monitor every item in the range when you listen on value. Don't
+    // include the item, which should be push back of the range, when I delete some items from
+    // this range. So I should refresh list manually.
+    scope.refresh = function() {
+      if (!!scope.currPageRef) scope.currPageRef.off('value');
+      scope.currPageRef = self.getRef(type)
+          .orderByChild("timestamp")
+        .endAt(scope.endAt) // NOTICE: displayed items are reversed
+        .limitToLast(scope.pageSize);
+      scope.currPageRef.on("value", msgOnOffHandlerCreator(function(snapshot) {
+        onData(snapshot);
+      }))
+    }
   }
 
   return self;
