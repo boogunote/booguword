@@ -15,7 +15,6 @@ angular.module('bn.reading_note.item', ['bn.common'])
 .controller('BnReadingNoteItemCtrl', ['$scope', 'BnCommon', '$timeout','$rootScope',
     function($scope, BnCommon, $timeout, $rootScope) {
 
-  $scope.editTitle = false;
   $scope.showUrl = false
   $scope.modified = false;
   $scope.showContent = true;
@@ -53,7 +52,7 @@ angular.module('bn.reading_note.item', ['bn.common'])
   $scope.save = function() {
 
     $scope.$emit('shutdown-message');
-
+    $scope.data.editTitle = false;
     delete $scope.data.$$hashKey;
     BnCommon.getRef('reading_note').child($scope.data.key).set($scope.data, function() {
       $rootScope.safeApply(function() {
