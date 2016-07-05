@@ -10,7 +10,8 @@ angular.module('bn.main', [])
   });
 }])
 
-.controller('MainCtrl', ['$scope', '$state', '$http', 'BnCommon', function($scope, $state, $http, BnCommon) {
+.controller('MainCtrl', ['$scope', '$state', '$http', 'BnCommon', '$anchorScroll', '$location',
+    function($scope, $state, $http, BnCommon, $anchorScroll, $location) {
   var ref = BnCommon.ref;
 
   if (!ref.getAuth()) {
@@ -24,6 +25,11 @@ angular.module('bn.main', [])
   
   $scope.logout = function() {
     ref.unauth();
+  }
+
+  $scope.goTop = function() {
+    $location.hash('top');
+    $anchorScroll();
   }
 
 }]);

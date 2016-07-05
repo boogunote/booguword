@@ -129,6 +129,7 @@ var jsList = [
   './src/bower_components/angular-sanitize/angular-sanitize.js',
   './src/bower_components/wilddog/wilddog.js',
   './src/bower_components/angular-elastic/elastic.js',
+  './src/bower_components/angular-cookies/angular-cookies.js',
   './tmp/templates.js',
   './src/js/services/common.js',
   './src/js/login/index.js',

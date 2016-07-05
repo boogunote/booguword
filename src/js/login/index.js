@@ -10,9 +10,16 @@ angular.module('bn.login', [])
   });
 }])
 
-.controller('LoginCtrl', ['$scope', '$state', 'BnCommon', function($scope, $state, BnCommon) {
+.controller('LoginCtrl', ['$scope', '$state', 'BnCommon', '$cookies',
+    function($scope, $state, BnCommon, $cookies) {
+
+  $scope.username = $cookies.get('username');
+  $scope.password = $cookies.get('password');
 
   $scope.login = function() {
+
+    if ($scope.isSaveUsername) $cookies.put('username', $scope.username);
+    if ($scope.isSavePassword) $cookies.put('password', $scope.password);
     
     BnCommon.ref.authWithPassword({
         email: $scope.username,

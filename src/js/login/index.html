@@ -1,11 +1,13 @@
 <form style="margin: 10px;">
   <div class="form-group">
     <label>用户名:</label>
-    <input type="text" class="form-control" ng-model="username" name="name" maxlength="255">
+    <input type="text" class="form-control" ng-model="username" name="name" maxlength="255" ng-keyup="$event.keyCode == 13 && login()"></input>
   </div>
   <div class="form-group">
     <label>密码:</label>
     <input type="password" class="form-control" ng-model="password" name="password" maxlength="255" ng-keyup="$event.keyCode == 13 && login()">
+    <input type="checkbox" ng-model="isSaveUsername">保存用户名</input>
+    <input type="checkbox" ng-model="isSavePassword">保存密码</input>
   </div>
   <button type="button" class="btn btn-primary" ng-click="login()">登陆</button>
 </form>

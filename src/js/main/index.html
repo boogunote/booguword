@@ -1,4 +1,5 @@
 <div style="padding: 8px;">
+  <a id="top"></a>
   <uib-tabset active="active">
     <uib-tab index="0" heading="语句" select="showSentence = true" deselect="showSentence = false">
       <bn-sentence ng-if="showSentence"></bn-sentence>
@@ -8,4 +9,5 @@
     </uib-tab>
   </uib-tabset>
   <button type="button" style="float: right;" class="btn btn-primary" ng-click="logout()">退出</button>
+  <span class="btn btn-default glyphicon glyphicon-arrow-up" style="position: fixed; right: 0px; top: calc(100% - 100px);" ng-click="goTop()"></span>
 </div>

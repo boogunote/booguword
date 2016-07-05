@@ -12,8 +12,8 @@ angular.module('bn.reading_note.item', ['bn.common'])
   };
 }])
 
-.controller('BnReadingNoteItemCtrl', ['$scope', 'BnCommon', '$timeout',
-    function($scope, BnCommon, $timeout) {
+.controller('BnReadingNoteItemCtrl', ['$scope', 'BnCommon', '$timeout','$rootScope',
+    function($scope, BnCommon, $timeout, $rootScope) {
 
   $scope.editTitle = false;
   $scope.showUrl = false
@@ -37,6 +37,13 @@ angular.module('bn.reading_note.item', ['bn.common'])
   })
 
   $scope.onKeyDown = function(evt) {
+
+    if (!!$scope.timeoutHandler) $timeout.cancel($scope.timeoutHandler);
+    $scope.timeoutHandler = $timeout(function() {
+      $scope.timeoutHandler = null;
+      $scope.save();
+    }, 3*1000)
+
     if (evt.ctrlKey && 83 == evt.keyCode) {
       $scope.save();
       evt.preventDefault();
@@ -49,7 +56,9 @@ angular.module('bn.reading_note.item', ['bn.common'])
 
     delete $scope.data.$$hashKey;
     BnCommon.getRef('reading_note').child($scope.data.key).set($scope.data, function() {
-      $scope.modified = false;
+      $rootScope.safeApply(function() {
+        $scope.modified = false;
+      })
       $scope.$emit('open-message');
     });
   }

@@ -4,6 +4,7 @@
   // Declare app level module which depends on views, and components
   angular.module('bn', [
     'ngSanitize',
+    'ngCookies',
     'templates',
     'ui.bootstrap',
     'ui.router',
